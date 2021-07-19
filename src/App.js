@@ -2,15 +2,40 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const products = [
+    {name:'PhotoShop',price:"12$"},
+    {name:'Priemere Pro',price:"13$"}
+  ]
   return (
     <div className="App">
       <header className="App-header">
       <p> I am a react person </p>
-      <Person name='Tawidi Bari' profession="Hacker" salary="20M"></Person>
+      <Product product={products[0]}></Product>
       <Person name='Tawidi Bari' profession="Hacker" salary="20M"></Person>
       </header> 
     </div>
   );
+}
+
+
+function Product(props){
+
+  const productStyle = {
+    border:"1px solid grey",
+    borderRadius:'5px',
+    backgroundColor:'lightgray',
+    height:"200px",
+    weight:"200px",
+    float:"left",
+  }
+  const {name,price} = props.product
+  return (
+    <div style={productStyle}>
+      <h3>{name}</h3>
+      <h5>{price}</h5>
+      <button>Buy Now !</button>
+    </div>
+  )
 }
 
 
