@@ -2,39 +2,26 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  let superHeroOne = {
-    name:'SuperMan',
-    comics: 'DC',
-    producer : 'Jack Snyder'
-  }
-
-  let style = {
-    color : 'red',
-    backgroundColor:'white'
-  }
-
   return (
     <div className="App">
       <header className="App-header">
-      <h1 style={style}> Movie Name : {superHeroOne.name}</h1>
-      <h2 style={{color:"cyan",backgroundColor:"yellow"}}>Producer Name: {superHeroOne.producer}</h2>
-      <ActionMovie></ActionMovie>
+      <p> I am a react person </p>
+      <Person name='Tawidi Bari' profession="Hacker" salary="20M"></Person>
+      <Person name='Tawidi Bari' profession="Hacker" salary="20M"></Person>
       </header> 
     </div>
   );
 }
 
-function ActionMovie(){
-  const movieStyle = {
-    border: '2px solid red',
-    margin: '10px',
-    backgroundColor:'green'
-  }
+
+function Person(props){
   return(
-    <div style={movieStyle}>
-       <h1> Movie Name : Fast and Furious </h1>
-       <h3> Producer Name : Jack Frost </h3>
+    <div style={{border:'2px solid blue' ,margin:"20px",borderRadius:'15px'}}>
+        <h1> Person Name is : {props.name}</h1>
+        <h2>Person Profession: {props.profession}</h2>
+        <h3>Person Salary : {props.salary}</h3>
     </div>
-  ) 
+  )
 }
+
 export default App;
