@@ -1,50 +1,76 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from 'react';
+
 
 function App() {
-  const products = [
-    {name:'PhotoShop',price:"12$"},
-    {name:'Priemere Pro',price:"13$"}
+  let friends = [
+    {name:'A',age:20},
+    {name:'B',age:23},
+    {name:'C',age:24}
   ]
+
+
   return (
     <div className="App">
       <header className="App-header">
-      <p> I am a react person </p>
-      <Product product={products[0]}></Product>
-      <Person name='Tawidi Bari' profession="Hacker" salary="20M"></Person>
-      </header> 
+      <Counter></Counter>
+      <Users></Users>
+      {
+        friends.map(fnd=><Friends friends={fnd}></Friends>)
+      }
+     
+      </header>
     </div>
   );
 }
 
-
-function Product(props){
-
-  const productStyle = {
-    border:"1px solid grey",
-    borderRadius:'5px',
-    backgroundColor:'lightgray',
-    height:"200px",
-    weight:"200px",
-    float:"left",
-  }
-  const {name,price} = props.product
-  return (
-    <div style={productStyle}>
-      <h3>{name}</h3>
-      <h5>{price}</h5>
-      <button>Buy Now !</button>
+// Counter component 
+const Counter = () =>{
+  const [count, setCount] = useState(10)
+  return(
+    <div>
+      <h1>Count:{count}</h1>
+      <button onClick={() => setCount(count + 1)}>Increase</button>
+      <button onMouseMove={() => setCount(count - 1)} >Decrease</button>
     </div>
   )
 }
 
-
-function Person(props){
+function Users(){
+  const [users,setUsers] = useState([])
+  useEffect(()=>{
+    fetch('http://hp-api.herokuapp.com/api/characters')
+    .then(response=>response.json())
+    .then(data=>setUsers(data))
+  })
   return(
-    <div style={{border:'2px solid blue' ,margin:"20px",borderRadius:'15px'}}>
-        <h1> Person Name is : {props.name}</h1>
-        <h2>Person Profession: {props.profession}</h2>
-        <h3>Person Salary : {props.salary}</h3>
+    <div>
+      <ul>
+        {
+          users.map(u=><li>{u.name}</li>)
+        }
+      </ul>
+    </div>
+  )
+}
+
+const Friends = (props) =>{
+  const friendsStyle = {
+    border:"2px solid cyan",
+    color:'black',
+    backgroundColor:'yellow',
+    float:'left',
+    height:"300px",
+    width:"300px",
+    borderRadius:'15px',
+    margin:'15px',
+  }
+
+  return(
+    <div style={friendsStyle}>
+      <h3>{props.friends.name}</h3>
+      <p>{props.friends.age}</p>
     </div>
   )
 }
