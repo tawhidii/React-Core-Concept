@@ -1,78 +1,44 @@
 import logo from './logo.svg';
 import './App.css';
+import './Character.css';
 import React, { useEffect, useState } from 'react';
 
 
 function App() {
-  let friends = [
-    {name:'A',age:20},
-    {name:'B',age:23},
-    {name:'C',age:24}
-  ]
 
+  useEffect(()=>{
+    fetch('http://hp-api.herokuapp.com/api/characters')
+    .then(response=>response.json())
+    .then(data=>setCharacter(data))
+  },[])
 
+  const [character,setCharacter] = useState([])
   return (
-    <div className="App">
-      <header className="App-header">
-      <Counter></Counter>
-      <Users></Users>
+    <div>
       {
-        friends.map(fnd=><Friends friends={fnd}></Friends>)
+        character.map(char=><HarryPotter name={char.name} image={char.image} actor={char.actor}></HarryPotter>)
       }
-     
-      </header>
+    
     </div>
   );
 }
 
-// Counter component 
-const Counter = () =>{
-  const [count, setCount] = useState(10)
+function HarryPotter(props){
+  console.log(props)
+
   return(
-    <div>
-      <h1>Count:{count}</h1>
-      <button onClick={() => setCount(count + 1)}>Increase</button>
-      <button onMouseMove={() => setCount(count - 1)} >Decrease</button>
+    <div className="character-card">
+      <h1>{props.name}</h1>
+      <img src={props.image} alt="" />
+      <h1>Original Name  of actor : {props.actor} </h1>
+      <aside>
+        
+      </aside>
     </div>
   )
 }
 
-function Users(){
-  const [users,setUsers] = useState([])
-  useEffect(()=>{
-    fetch('http://hp-api.herokuapp.com/api/characters')
-    .then(response=>response.json())
-    .then(data=>setUsers(data))
-  })
-  return(
-    <div>
-      <ul>
-        {
-          users.map(u=><li>{u.name}</li>)
-        }
-      </ul>
-    </div>
-  )
-}
 
-const Friends = (props) =>{
-  const friendsStyle = {
-    border:"2px solid cyan",
-    color:'black',
-    backgroundColor:'yellow',
-    float:'left',
-    height:"300px",
-    width:"300px",
-    borderRadius:'15px',
-    margin:'15px',
-  }
 
-  return(
-    <div style={friendsStyle}>
-      <h3>{props.friends.name}</h3>
-      <p>{props.friends.age}</p>
-    </div>
-  )
-}
 
 export default App;
